@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -50,5 +51,12 @@ class JpaPracticeApplicationTests {
     void fetchSingleResult(){
         Optional<ProductEntity> entity = productRepository.findByTitleAndPrice("Daawat Basmati Rice 1kg", BigDecimal.valueOf(89.99));
         System.out.println(entity);
+    }
+
+    @Test
+    void fetchProductsWithSorting(){
+//        List<ProductEntity> entities =productRepository.findByTitleOrderByPrice("Tata Salt Iodized 1kg");
+        List<ProductEntity> entities = productRepository.findAllByOrderByQuantity();
+        entities.forEach(entity -> System.out.println(entity));
     }
 }
